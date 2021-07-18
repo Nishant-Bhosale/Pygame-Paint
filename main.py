@@ -69,8 +69,17 @@ while run:
 
          try:
             row, col = get_row_col_from_pos(pos)
-            grid[row] [col] = drawing_color
+            grid[row][col] = drawing_color
          except IndexError:
-            pass
+            for button in buttons:
+               if not button.clicked(pos):
+                  continue
+               
+               drawing_color = button.color
+               if button.text == 'Clear':
+                  grid = init_grid(ROWS, COLS, BG_COLOR)
+                  drawing_color = BLACK
+
    draw(WIN, grid, buttons)
+
 pygame.quit()
